@@ -41,36 +41,22 @@ function MyClass (tempX, tempY){
   // all object properties and methods begin with "this."
   this.x = tempX; // assign 1st argument to this.x 
   this.y = tempY; // assign 2nd argument to this.y
-  this.sx = random(-5, 5); //refers to sx. allows ellipse to move random direction along the x axis
-  this.sy = random(-5, 5); //refers to sx. allows ellipse to move random direction along the y axis
   this.d = 50; // initialize .d property to 50
-  //this.speed = random(-1, 1); // initialize .speed to a random number between 1 and -1
+  this.speed = random(-1, 1); // initialize .speed to a random number between 1 and -1
 
   // methods are functions that are assigned to property names
-  //TESTING THIS IS OLD
-  //this.move = function() {
+  this.move = function() {
   // define how the object will change location on screen each frame
-    //this.x += this.speed; // move by the value of .speed
-    //if (this.x > width || this.x < 0){
+    this.x += this.speed; // move by the value of .speed
+    if (this.x > width || this.x < 0){
+     //if the object reaches the right edge OR left edge
+      this.speed = this.speed * -1; // reverse polarity!
+    }
+    this.y += this.speed; // move by the value of .speed
+    if (this.y > height || this.y < 0){
     // if the object reaches the right edge OR left edge
-      //this.speed = this.speed * -1; // reverse polarity!
-    //}
-    //this.y += this.speed; // move by the value of .speed
-    //if (this.y > height || this.y < 0){
-    // if the object reaches the right edge OR left edge
-      //this.speed = this.speed * -1; // reverse polarity!
-    //}
-  //}
-  //NEW STUFF BELOW TESTING
-  this.move = function(){
-    this.x += this.sx;
-    this.y += this.sy;
-  }
-  if (this.x < 0 || this.x > width){ //sets horizontal boundaries for the dot so it doesn't go off screen 
-    this.sx *= -1; //tells it to go the opposite direction if it hits the edge of the horizontal boundaries 
-}
-  if (this.y < 0 || this.y > height) {
-    this.sy = this.sy * -1;
+      this.speed = this.speed * -1; // reverse polarity!
+    }
   }
   this.display = function(){ 
     // define how the object will look
