@@ -26,7 +26,12 @@ function draw(){
   background(0, 0, 200); //light gray background
   for(var i = 0; i < objects.length; i++){
     objects[i].move(); // each time through the loop, move the next object in the array
-    objects[i].display(); // call the display method for each object (0 - 9)
+    if(objects [i].left){
+      objects[i].displayleft();
+    } else {
+      objects[i].displayright();
+    }
+    //objects[i].display(); // call the display method for each object (0 - 9)
   }
 }
 
@@ -42,6 +47,12 @@ function MyClass (tempX, tempY){
   this.w = random (20, 80);
   this.xspeed = random(-8, 2); // initialize .speed to a random number between 1 and -1
   this.yspeed = random(-2, 2); // initialize .speed to a random number between 1 and -1
+  this.left;
+  if(this.xspeed < 0){
+    this.left = true; 
+  } else {
+    this.left = false;
+  }
 
   // methods are functions that are assigned to property names
   this.move = function() {
@@ -50,6 +61,7 @@ function MyClass (tempX, tempY){
     if (this.x > width || this.x < 0){
      //if the object reaches the right edge OR left edge
       this.xspeed = this.xspeed * -1; // reverse polarity!
+      this.left = !this.left //! means "not" so if it is true, it will now be false. so "not "this.left""
     }
     this.y += this.yspeed; // move by the value of .speed
     if (this.y > height || this.y < 0){
@@ -57,7 +69,8 @@ function MyClass (tempX, tempY){
       this.yspeed = this.yspeed * -1; // reverse polarity!
     }
   }
-  this.display = function(){ 
+
+  this.displayleft = function(){ 
     // define how the object will look
     push();
     translate(this.x, this.y) // center the drawing at the .x and .y properties of the object
@@ -69,6 +82,20 @@ function MyClass (tempX, tempY){
     ellipse(this.w*.1, 0, this.w/4, this.w/6) //pectoral fin
     fill(0)
     ellipse(this.w/-4, this.w*-.2, this.w/7) //eye
+    pop();
+  }
+  this.displayright = function(){ 
+    // define how the object will look
+    push();
+    translate(this.x, this.y) // center the drawing at the .x and .y properties of the object
+    fill(255, 165, 0); // orange
+    ellipse(-this.w*.2, this.w*-.5, this.w/2, this.w/3) //dorsal fin
+    ellipse(-this.w*-.1, this.w*.5, this.w/6, this.w/4) //pelvic fin
+    triangle(-this.w*.4, 0, -this.w*.8, this.w*-.5, -this.w*.8, this.w*.5) //tail
+    ellipse(0, 0, this.w, this.w*.9); //body
+    ellipse(-this.w*.1, 0, this.w/4, this.w/6) //pectoral fin
+    fill(0)
+    ellipse(-this.w/-4, this.w*-.2, this.w/7) //eye
     pop();
   }
 } // end of MyClass() constructor
