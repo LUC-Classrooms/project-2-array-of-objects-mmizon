@@ -11,25 +11,23 @@
 ***/
 
 // Global Variables go here
-var obj1, obj2, obj3; 
+var objects = new Array(10); // the argument to Array() defines its size
 
 function setup(){
   // this function will run once
   createCanvas(600, 400); // create a 600 x 400 pixel drawing canvas
-  obj1 = new MyClass(100, 100);
-  obj2 = new MyClass(200, 100);
-  obj3 = new MyClass(150, 200);
+  for(var i = 0; i < objects.length; i++) {
+    objects[i] = new MyClass(random(width), random(height));
+    }
 
 }
 
 function draw(){
-  background(200); //light gray background
-  obj1.move(); // move object 1 (obj1)
-  obj1.display(); // display obj1 on screen
-  obj2.move();
-  obj2.display();
-  obj3.move();
-  obj3.display();
+  background(0, 0, 200); //light gray background
+  for(var i = 0; i < objects.length; i++){
+    objects[i].move(); // each time through the loop, move the next object in the array
+    objects[i].display(); // call the display method for each object (0 - 9)
+  }
 }
 
 //copy pasted info from assignment begins below 
@@ -41,29 +39,36 @@ function MyClass (tempX, tempY){
   // all object properties and methods begin with "this."
   this.x = tempX; // assign 1st argument to this.x 
   this.y = tempY; // assign 2nd argument to this.y
-  this.d = 50; // initialize .d property to 50
-  this.speed = random(-1, 1); // initialize .speed to a random number between 1 and -1
+  this.w = random (20, 80);
+  this.xspeed = random(-8, 2); // initialize .speed to a random number between 1 and -1
+  this.yspeed = random(-2, 2); // initialize .speed to a random number between 1 and -1
 
   // methods are functions that are assigned to property names
   this.move = function() {
   // define how the object will change location on screen each frame
-    this.x += this.speed; // move by the value of .speed
+    this.x += this.xspeed; // move by the value of .speed
     if (this.x > width || this.x < 0){
      //if the object reaches the right edge OR left edge
-      this.speed = this.speed * -1; // reverse polarity!
+      this.xspeed = this.xspeed * -1; // reverse polarity!
     }
-    this.y += this.speed; // move by the value of .speed
+    this.y += this.yspeed; // move by the value of .speed
     if (this.y > height || this.y < 0){
     // if the object reaches the right edge OR left edge
-      this.speed = this.speed * -1; // reverse polarity!
+      this.yspeed = this.yspeed * -1; // reverse polarity!
     }
   }
   this.display = function(){ 
     // define how the object will look
     push();
     translate(this.x, this.y) // center the drawing at the .x and .y properties of the object
-    fill(255, 0, 0); // red
-    ellipse(0, 0, this.d, this.d); // draw a circle at the center of the object image
+    fill(255, 165, 0); // orange
+    ellipse(this.w*.2, this.w*-.5, this.w/2, this.w/3) //dorsal fin
+    ellipse(this.w*-.1, this.w*.5, this.w/6, this.w/4) //pelvic fin
+    triangle(this.w*.4, 0, this.w*.8, this.w*-.5, this.w*.8, this.w*.5) //tail
+    ellipse(0, 0, this.w, this.w*.9); //body
+    ellipse(this.w*.1, 0, this.w/4, this.w/6) //pectoral fin
+    fill(0)
+    ellipse(this.w/-4, this.w*-.2, this.w/7) //eye
     pop();
   }
 } // end of MyClass() constructor
