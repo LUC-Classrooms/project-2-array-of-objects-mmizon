@@ -1,7 +1,7 @@
 /*
  Project 2 - Array of Objects
- Name: 
- Comments: 
+ Name: Madison Mizon
+ Comments: Here is my aquarium! 
  */
 
 /*** 
@@ -11,25 +11,24 @@
 ***/
 
 // Global Variables go here
-var objects = new Array(10); // the argument to Array() defines its size
+var objects = new Array(20); // the argument to Array() defines its size
 
 function setup(){
   // this function will run once
   createCanvas(600, 400); // create a 600 x 400 pixel drawing canvas
-  for(var i = 0; i < objects.length; i++) {
-    objects[i] = new MyClass(random(width), random(height));
+  for(var i = 0; i < objects.length; i++) { //for loop as defined by the assignment instructions
+    objects[i] = new MyClass(random(width), random(height)); //creates the object in a random place on the canvas
     }
-
 }
 
 function draw(){
-  background(0, 0, 200); //light gray background
+  background(0, 0, 200); //blue background
   for(var i = 0; i < objects.length; i++){
     objects[i].move(); // each time through the loop, move the next object in the array
-    if(objects [i].left){
-      objects[i].displayleft();
-    } else {
-      objects[i].displayright();
+    if(objects [i].left){ //if my object (the fish) is moving left it will...
+      objects[i].displayleft(); //display my left aligned object
+    } else { //if the object is not moving left (aka moving to the right) it will... 
+      objects[i].displayright(); //display my right aligned object 
     }
     //objects[i].display(); // call the display method for each object (0 - 9)
   }
@@ -37,21 +36,20 @@ function draw(){
 
 //copy pasted info from assignment begins below 
 
-
 // the Name of a constructor class should be capitalized
 function MyClass (tempX, tempY){ 
   // this constructor expects two arguments
   // all object properties and methods begin with "this."
   this.x = tempX; // assign 1st argument to this.x 
   this.y = tempY; // assign 2nd argument to this.y
-  this.w = random (20, 80);
+  this.w = random (20, 80); //variable I used in creating my displayed object 
   this.xspeed = random(-8, 2); // initialize .speed to a random number between 1 and -1
   this.yspeed = random(-2, 2); // initialize .speed to a random number between 1 and -1
-  this.left;
-  if(this.xspeed < 0){
-    this.left = true; 
-  } else {
-    this.left = false;
+  this.left; //didn't need to initialize. designates "left" which I use below
+  if(this.xspeed < 0){ //if my speed is negative (meaning moving to the left) it will 
+    this.left = true; //be "left" aligned, according to my code here 
+  } else { //if not (aka my spede is positive, meaning it's moving to the right) it will
+    this.left = false; //be "right" aligned. I define left and right so I can use my right and left aligned objects 
   }
 
   // methods are functions that are assigned to property names
@@ -70,7 +68,7 @@ function MyClass (tempX, tempY){
     }
   }
 
-  this.displayleft = function(){ 
+  this.displayleft = function(){ //my fish that will show when moving to the left 
     // define how the object will look
     push();
     translate(this.x, this.y) // center the drawing at the .x and .y properties of the object
@@ -84,7 +82,7 @@ function MyClass (tempX, tempY){
     ellipse(this.w/-4, this.w*-.2, this.w/7) //eye
     pop();
   }
-  this.displayright = function(){ 
+  this.displayright = function(){ //my fish that will show when moving to the right 
     // define how the object will look
     push();
     translate(this.x, this.y) // center the drawing at the .x and .y properties of the object
